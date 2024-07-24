@@ -1,0 +1,19 @@
+<div class="navbar-custom-menu">
+  <ul class="nav navbar-nav">
+    <li class="user user-menu">
+      <span *ngIf="isLoggedIn(); else notLoggedIn">
+        Olá, {{user().name}} | <a (click)="logout()">Sair</a>
+      </span>
+
+
+      <ng-template #notLoggedIn>
+        
+        <ul class="nav navbar-nav">
+          <li><a (click)="createAccount()">Criar conta</a></li>
+          <li><a (click)="login()" style="font-weight: 600;">Entrar</a></li>
+        </ul>
+      </ng-template>
+
+    </li>
+  </ul>
+</div>

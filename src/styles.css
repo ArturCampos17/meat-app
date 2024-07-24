@@ -1,11 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
 body {
-  color: #555;
+  color: #313131;
 }
 
 .box-header {
   color: inherit;
+}
+
+
+
+.fw-bold{
+  font-weight: 800;
+}
+
+.display-5{
+  font-size: calc(1.425rem + 2.1vw);
+}
+
+.py-5{
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important; 
+}
+
+.px-4{
+  padding-right: 1.5rem !important;
+  padding-left: 1.5rem !important;
+}
+
+.my-5{
+  margin-top: 3rem !important;
+  margin-bottom:3rem !important; 
 }
 
 /*
@@ -205,20 +230,25 @@ body {
 /*Jumbotrons*/
 
 .jumbotron {
-  background-color: #fff;
+  background: none;
   text-align:center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .jumbotron h2 {
   font-size: 40px;
 }
 
 .welcome-jumbotron h1 {
-  margin-bottom: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .welcome-jumbotron p {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   font-size: 30px;
+  font-weight:400;
 }
 
 /* inputs */
@@ -260,4 +290,20 @@ body {
 
 .has-error-block {
   color: #dd4b39;
+}
+
+
+.search-link{
+  cursor: pointer;
+  color: rgb(5, 5, 5);
+}
+
+.search-link:hover{
+  color: rgb(212, 24, 71);
+
+}
+
+.search-bar{
+  opacity: 0;
+  max-height: 0px;
 }

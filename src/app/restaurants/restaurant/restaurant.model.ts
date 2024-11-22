@@ -1,12 +1,14 @@
-export interface Restaurant{
-id : string
-name : string
-category : string
-deliveryEstimate : string
-rating : number
-imagePath : string
-about : string
-hours : string
+export interface Restaurant {
+
+  id: string
+  name: string
+  category: string
+  deliveryEstimate: string
+  rating: number
+  imagePath: string
+  hours?: string
+  about?: string
+}
 
   /*
   "id": "bread-bakery",
@@ -17,4 +19,3 @@ hours : string
   "imagePath": "assets/img/restaurants/breadbakery.png",
   "about": "asasaskasakoaksksal",
   "hours" : "Segunda a Segunda, das 08:00 as 23:30"*/
-}

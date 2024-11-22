@@ -1,33 +1,126 @@
+// import { Injectable } from "@angular/core";
+// import { HttpClient, HttpParams } from "@angular/common/http";
+// import { Observable, throwError } from "rxjs";
+
+// import { ErrorHandler } from "app/app.error-handler";
+// import { catchError, map } from 'rxjs/operators';
+
+
+// import { Restaurant } from "./restaurant/restaurant.model";
+// import { Reviews } from "../restaurant-detail/reviews/reviews.model"
+// import { MEAT_API } from 'app/app.api';
+// import { MenuItem } from "app/restaurant-detail/menu-item/menu-item.model";
+
+// @Injectable()
+// export class RestaurantsService {
+
+//   constructor(private http: HttpClient) { }
+
+//   /**
+//  * Retorna a lista de todos os restaurantes
+//  */
+
+//   restaurants(): Observable<Restaurant[]> {
+//     return this.http.get<Restaurant[]>(`${MEAT_API}/restaurants`)
+//       .pipe(
+//         catchError((error) => ErrorHandler.handleError(error))
+//       );
+//   }
+
+//   /**
+//    * Retorna um restaurante específico pelo ID
+//    * @param id ID do restaurante
+//    */
+
+//   restaurantById(id: string): Observable<Restaurant> {
+//     return this.http.get<Restaurant>(`${MEAT_API}/restaurants/${id}`)
+//       .pipe(
+//         catchError((error) => ErrorHandler.handleError(error))
+//       );
+//   }
+//   /**
+//    * Retorna as avaliações de um restaurante específico pelo ID
+//    * @param id ID do restaurante
+//    */
+//   reviewsOfRestaurant(id: string): Observable<any>  {
+//     console.log(id)
+//     return this.http.get(`${MEAT_API}/restaurants/${id}/reviews`)
+//   }
+
+//   menuOfRestaurants(id: string): Observable<MenuItem[]> {
+//     return this.http.get<MenuItem[]>(`${MEAT_API}/restaurants/${id}/menu`)
+//       .pipe(
+//         map(items => items || []), // Garante que retorna um array vazio caso seja undefined ou null
+//         catchError(error => {
+//           console.error('Erro ao carregar itens do menu:', error);
+//           return throwError(() => new Error('Erro ao carregar o menu. Tente novamente mais tarde.'));
+//         })
+//       );
+//   }
+// }
+
+
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, of , throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { ErrorHandler } from '../app.error-handler';
+
 import { Restaurant } from "./restaurant/restaurant.model";
+import { Reviews } from "../restaurant-detail/reviews/reviews.model"
+import { MEAT_API } from 'app/app.api';
+import { MenuItem } from "app/restaurant-detail/menu-item/menu-item.model";
 
+@Injectable({
+  providedIn: 'root',
+})
 export class RestaurantsService {
+  constructor(private http: HttpClient) {}
 
-  rests: Restaurant[] = [
-      {
-        id: "bread-bakery",
-        name: "Bread & Bakery",
-        category: "Bakery",
-        deliveryEstimate: "25m",
-        rating: 4.9,
-        imagePath: "assets/img/restaurants/breadbakery.png",
-        about: "A Bread & Brakery tem 40 anos de mercado. Fazemos os melhores doces e pães. Compre e confira.",
-        hours: "Funciona de segunda à sexta, de 8h às 23h"
-      },
-      {
-        id: "burger-house",
-        name: "Burger House",
-        category: "Hamburgers",
-        deliveryEstimate: "100m",
-        rating: 3.5,
-        imagePath: "assets/img/restaurants/burgerhouse.png",
-        about: "40 anos se especializando em trash food.",
-        hours: "Funciona todos os dias, de 10h às 22h"
-      }
-  ]
+  restaurants(search?: string): Observable<Restaurant[]> {
+    let params = new HttpParams();
+    if (search) {
+      params = params.set('q', search);
+    }
 
-  constructor(){}
-
-  restaurants(): Restaurant[]{
-  return this.rests;
+    return this.http
+      .get<Restaurant[]>(`${MEAT_API}/restaurants`, { params })
+      .pipe(
+        catchError(error => {
+          console.error('Erro ao buscar restaurantes', error); // Log do erro
+          return of([]);  // Retorna um array vazio se ocorrer um erro
+        })
+      );
   }
-}
+
+  restaurantById(id: string): Observable<any> {
+    return this.http
+      .get<Restaurant>(`${MEAT_API}/restaurants/${id}`)
+      .pipe(
+        catchError(error => {
+          console.error('Erro ao buscar restaurantes', error); // Log do erro
+          return of([]);  // Retorna um array vazio se ocorrer um erro
+        })
+      );
+  }
+
+  reviewsOfRestaurant(id: string): Observable<any> {
+    return this.http.get<any>(`${MEAT_API}/restaurants/${id}/reviews`)
+      .pipe(
+        catchError(error => {
+          console.error('Erro ao obter as avaliações', error);
+          return of([]); // Retorna um array vazio em caso de erro
+        })
+      );
+  }
+
+  menuOfRestaurants(restaurantId: string): Observable<MenuItem[]> {
+    console.log(`Buscando menu para o restaurante ${restaurantId}`);
+    return this.http.get<MenuItem[]>(`api/restaurants/${restaurantId}/menu`)
+      .pipe(
+        catchError(error => {
+          console.error('Erro na requisição:', error);  // Verifique se há erro na requisição
+          return of([]);  // Retorne um array vazio em caso de erro
+        })
+      );
+}}

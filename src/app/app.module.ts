@@ -3,7 +3,9 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';import { RouterModule, PreloadAllModules } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-import {LocationStrategy, HashLocationStrategy} from '@angular/common'
+import {LocationStrategy, HashLocationStrategy,registerLocaleData } from '@angular/common'
+
+import localePt from '@angular/common/locales/pt';
 
 import {ROUTES} from './app.routes'
 
@@ -22,6 +24,8 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 import {SharedModule} from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component'
+
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
   declarations: [

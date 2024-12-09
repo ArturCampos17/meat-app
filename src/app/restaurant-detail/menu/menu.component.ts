@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit }  from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute }     from '@angular/router';
 import { RestaurantsService } from 'app/restaurants/restaurants.service';
 
-import { Observable } from 'rxjs';
-import { MenuItem } from '../menu-item/menu-item.model';
-import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { Observable }         from 'rxjs';
+import { MenuItem }           from '../menu-item/menu-item.model';
+//import { MenuItemComponent }  from '../menu-item/menu-item.component';
 @Component({
   selector: 'mt-menu',
   templateUrl: './menu.component.html'
@@ -16,38 +16,6 @@ export class MenuComponent implements OnInit {
 
   constructor(private restaurantsService: RestaurantsService,
     private route: ActivatedRoute) { }
-
-  // ngOnInit() {
-
-  //   this.menu = this.restaurantsService
-  //     .menuOfRestaurants(this.route.parent.snapshot.params['id'])
-  //     this.menu.subscribe(data => {
-  //       console.log('Menu items:', data);  // Verifique os dados do menu
-  //     });
-  // }
-
-  // addMenuItem(item: MenuItem){
-  //   console.log(item)
-  // }
-  // ngOnInit() {
-  //   const restaurantId = this.route.parent.snapshot.params['id'];
-  //   console.log('Restaurant ID:', restaurantId);  // Verifique se está pegando a ID da rota corretamente
-
-  //   this.menu = this.restaurantsService.menuOfRestaurants(restaurantId);
-
-  //   console.log('Menu Observable:', this.menu);  // Verifique se o Observable está configurado
-
-  //   this.menu.subscribe({
-  //     next: (data) => {
-  //       console.log('Menu items:', data);  // Verifique os dados do menu
-  //     },
-  //     error: (err) => {
-  //       console.error('Erro ao carregar menu:', err);  // Verifique se há erros
-  //     }
-  //   });
-  // }
-  // }
-
 
   ngOnInit() {
     const restaurantId = this.route.parent.snapshot.params['id'];
@@ -85,6 +53,6 @@ export class MenuComponent implements OnInit {
   }
 
   addMenuItem(item: MenuItem) {
-    console.log(item); // Lógica para adicionar o item ao carrinho ou outra funcionalidade
+    console.log(item);
   }
 }
